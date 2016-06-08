@@ -45,30 +45,36 @@ public class CanvasFragment extends CoreFragment implements View.OnClickListener
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-//			case R.id.tab_group:
-//				mPager.setCurrentItem(0);
+			case R.id.tab_missed:
+				mPager.setCurrentItem(0);
 //				imGroup.setBackgroundResource(R.drawable.team_click);
 //				imMatch.setBackgroundResource(R.drawable.match);
 //				imStadium.setBackgroundResource(R.drawable.stadium);
-//				break;
-//			case R.id.tab_match:
-//				mPager.setCurrentItem(1);
+				break;
+			case R.id.tab_received:
+				mPager.setCurrentItem(1);
 //				imMatch.setBackgroundResource(R.drawable.match_click);
 //				imGroup.setBackgroundResource(R.drawable.team);
 //				imStadium.setBackgroundResource(R.drawable.stadium);
-//				break;
-//			case R.id.tab_stadium:
-//				mPager.setCurrentItem(2);
+				break;
+			case R.id.tab_dialed:
+				mPager.setCurrentItem(2);
 //				imStadium.setBackgroundResource(R.drawable.stadium_click);
 //				imMatch.setBackgroundResource(R.drawable.match);
 //				imGroup.setBackgroundResource(R.drawable.team);
-//				break;
+				break;
+			case R.id.tab_total:
+				mPager.setCurrentItem(3);
+//				imStadium.setBackgroundResource(R.drawable.stadium_click);
+//				imMatch.setBackgroundResource(R.drawable.match);
+//				imGroup.setBackgroundResource(R.drawable.team);
+				break;
 		default:
 			break;
 		}
 	}
 
-	public static final int NUM_PAGES = 0;
+	public static final int NUM_PAGES = 4;
 	public static ViewPager mPager;
 	public PagerAdapter mPagerAdapter;
 
@@ -80,12 +86,14 @@ public class CanvasFragment extends CoreFragment implements View.OnClickListener
 		@Override
 		public CoreFragment getItem(int position) {
 			switch (position) {
-//				case 0:
-//					return GroupFragment.getInstance(mActivity);
-//				case 1:
-//					return MatchFragment.getInstance(mActivity);
-//				case 2:
-//					return StadiumFragment.getInstance(mActivity);
+				case 0:
+					return MissedFragment.getInstance(mActivity);
+				case 1:
+					return ReceivedFragment.getInstance(mActivity);
+				case 2:
+					return DialedFragment.getInstance(mActivity);
+				case 3:
+					return TotalFragment.getInstance(mActivity);
 			default:
 				break;
 			}
@@ -184,6 +192,7 @@ public class CanvasFragment extends CoreFragment implements View.OnClickListener
 		tabMissed.setOnClickListener(this);
 		tabReceived.setOnClickListener(this);
 		tabDialed.setOnClickListener(this);
+		tabTotal.setOnClickListener(this);
 	}
 
 
