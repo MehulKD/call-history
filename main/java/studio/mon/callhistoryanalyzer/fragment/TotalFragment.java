@@ -25,9 +25,9 @@ public class TotalFragment extends CoreFragment implements SwipeRefreshLayout.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_total, container, false);
         listView = (ListView) view.findViewById(R.id.listView);
-        swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe_view);
-        swipeView.setOnRefreshListener(this);
-        swipeView.setColorSchemeColors(Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN);
+//        swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe_view);
+//        swipeView.setOnRefreshListener(this);
+//        swipeView.setColorSchemeColors(Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN);
 
         return view;
 
@@ -75,6 +75,6 @@ public class TotalFragment extends CoreFragment implements SwipeRefreshLayout.On
 
     @Override
     public void onRefresh() {
-        swipeView.setRefreshing(true);
+        //swipeView.setRefreshing(true);
     }
 }
