@@ -1,5 +1,6 @@
 package studio.mon.callhistoryanalyzer.core;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -37,6 +38,18 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS tblCall");
             onCreate(db);
         }
+    }
+
+    public void add(CallAnalyzer callAnalyzer) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", callAnalyzer.getName());
+        values.put("number", callAnalyzer.getNumber());
+        values.put("time", callAnalyzer.getTime());
+        values.put("type", callAnalyzer.getType());
+        values.put("duration", callAnalyzer.getDuration());
+        db.insert("tblCall", null, values);
+        db.close();
     }
 
     public List<CallAnalyzer> getAll() {
