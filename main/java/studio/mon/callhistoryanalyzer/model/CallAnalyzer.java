@@ -72,4 +72,15 @@ public class CallAnalyzer {
     public void setDuration(String duration) {
         this.duration = duration;
     }
+
+    @Override
+    public String toString() {
+        return "CallAnalyzer{" +
+                "name='" + name + '\'' +
+                ", number='" + number + '\'' +
+                ", time='" + time + '\'' +
+                ", type='" + type + '\'' +
+                ", duration='" + duration + '\'' +
+                '}';
+    }
 }

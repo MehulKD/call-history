@@ -7,4 +7,6 @@ public class Constants {
     public static String RECEIVED_CALL = "Received Call";
     public static String DIALED_CALL = "Dial Call";
     public static String MISSED_CALL = "Missed Call";
+    public static String DATE_TYPE = "Date";
+    public static String MONTH_TYPE = "Month";
 }

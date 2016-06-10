@@ -39,17 +39,13 @@ public class DBHelper extends SQLiteOpenHelper {
             onCreate(db);
         }
     }
-
-    public void add(CallAnalyzer callAnalyzer) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("name", callAnalyzer.getName());
-        values.put("number", callAnalyzer.getNumber());
-        values.put("time", callAnalyzer.getTime());
-        values.put("type", callAnalyzer.getType());
-        values.put("duration", callAnalyzer.getDuration());
-        db.insert("tblCall", null, values);
-        db.close();
+    public int getCount() {
+        String countQuery = "SELECT * FROM tblCall";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
     }
 
     public List<CallAnalyzer> getAll() {
@@ -69,7 +65,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 callAnalyzer.setTime(cursor.getString(3));
                 callAnalyzer.setType(cursor.getString(4));
                 callAnalyzer.setDuration(cursor.getString(5));
-
                 callAnalyzerList.add(callAnalyzer);
             } while (cursor.moveToNext());
         }
@@ -77,4 +72,21 @@ public class DBHelper extends SQLiteOpenHelper {
         return callAnalyzerList;
     }
 
+    public void add(CallAnalyzer callAnalyzer) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", callAnalyzer.getName());
+        values.put("number", callAnalyzer.getNumber());
+        values.put("time", callAnalyzer.getTime());
+        values.put("type", callAnalyzer.getType());
+        values.put("duration", callAnalyzer.getDuration());
+        db.insert("tblCall", null, values);
+        db.close();
+    }
+
+    public void deleteAll() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS tblCall");
+        onCreate(db);
+    }
 }
