@@ -102,6 +102,13 @@ public class Common {
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Set custom listview for app
+     * @param context
+     * @param listView
+     * @param list
+     * @param type
+     */
     public static void setCustomList(Context context, ListView listView, List<CallAnalyzer> list, int type) {
         if (!list.isEmpty()) {
             switch (type) {
