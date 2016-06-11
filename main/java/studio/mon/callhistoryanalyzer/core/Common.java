@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.DatePicker;
+import android.widget.ListView;
+import android.widget.Switch;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import studio.mon.callhistoryanalyzer.R;
 import studio.mon.callhistoryanalyzer.model.CallAnalyzer;
 
 /**
@@ -76,5 +79,27 @@ public class Common {
 //        db.deleteAll();
         list.clear();
         adapter.notifyDataSetChanged();
+    }
+
+    public static void setCustomList(Context context, ListView listView, List<CallAnalyzer> list, int type){
+        if(!list.isEmpty()){
+            switch (type){
+                case 1: for(CallAnalyzer callAnalyzer : list){
+                            callAnalyzer.setIcon(R.drawable.missedcall);
+                        }
+                        break;
+                case 2: for(CallAnalyzer callAnalyzer : list){
+                            callAnalyzer.setIcon(R.drawable.incoming);
+                        }
+                        break;
+                case 3: for(CallAnalyzer callAnalyzer : list){
+                            callAnalyzer.setIcon(R.drawable.outgoing);
+                        }
+                        break;
+                default:break;
+            }
+            CustomCaller customCaller = new CustomCaller(context, R.layout.fragment_customlayer, list);
+            listView.setAdapter(customCaller);
+        }
     }
 }

@@ -2,6 +2,7 @@ package studio.mon.callhistoryanalyzer.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import studio.mon.callhistoryanalyzer.core.Common;
 import studio.mon.callhistoryanalyzer.core.Constants;
 import studio.mon.callhistoryanalyzer.core.CoreActivity;
 import studio.mon.callhistoryanalyzer.core.CoreFragment;
+import studio.mon.callhistoryanalyzer.core.CustomCaller;
 import studio.mon.callhistoryanalyzer.core.DBHelper;
 import studio.mon.callhistoryanalyzer.model.CallAnalyzer;
 
@@ -45,8 +47,7 @@ public class MissedFragment extends CoreFragment implements SwipeRefreshLayout.O
 //        swipeView.setColorSchemeColors(Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN);
         DBHelper db = new DBHelper(mContext);
         missedCallList = Common.refreshListCall(mContext, missedCallList, Constants.MISSED_CALL);
-        adapter = new ArrayAdapter<CallAnalyzer>(mActivity, android.R.layout.simple_list_item_1, missedCallList);
-        listView.setAdapter(adapter);
+        Common.setCustomList(mContext,listView,missedCallList,Constants.CALLER_MISSED);
         initListener();
         return view;
     }
