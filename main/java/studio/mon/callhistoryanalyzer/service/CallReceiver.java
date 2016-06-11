@@ -22,36 +22,42 @@ public class CallReceiver extends PhoneCallReceiver {
 
     @Override
     protected void onIncomingCallStarted(Context ctx, String number, Date start) {
-        Log.i("PEARLO", "Incoming started");
     }
 
     @Override
     protected void onOutgoingCallStarted(Context ctx, String number, Date start) {
-        Log.i("PEARLO", "Outgoing started");
     }
 
     @Override
     protected void onIncomingCallEnded(Context ctx, String number, Date start, Date end) {
-        Log.i("PEARLO", "Incoming ended");
-        DBHelper dbHelper = new DBHelper(ctx);
-        CallAnalyzer callAnalyzer = new CallAnalyzer();
-        callAnalyzer.setName(getContactName(ctx, number));
-        callAnalyzer.setNumber(number);
-        callAnalyzer.setType(Constants.RECEIVED_CALL);
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        callAnalyzer.setTime(dt.format((start)));
-        callAnalyzer.setDuration(getDiffSeconds(start,end)+ "s");
-        dbHelper.add(callAnalyzer);
+        storeCall(ctx, number, start, end, Constants.RECEIVED_CALL);
     }
 
     @Override
     protected void onOutgoingCallEnded(Context ctx, String number, Date start, Date end) {
-        Log.i("PEARLO", "Outgoing Ended");
+        storeCall(ctx, number, start, end, Constants.DIALED_CALL);
     }
 
     @Override
     protected void onMissedCall(Context ctx, String number, Date start) {
         Log.i("PEARLO", "MissedCall");
+        storeCall(ctx, number, start, null, Constants.MISSED_CALL);
+    }
+
+    private void storeCall(Context ctx, String number, Date start, Date end, String type) {
+        DBHelper dbHelper = new DBHelper(ctx);
+        CallAnalyzer callAnalyzer = new CallAnalyzer();
+        callAnalyzer.setName(getContactName(ctx, number));
+        callAnalyzer.setNumber(number);
+        callAnalyzer.setType(type);
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        callAnalyzer.setTime(dt.format((start)));
+        if (end != null) {
+            callAnalyzer.setDuration(getDiffSeconds(start,end)+ "s");
+        } else {
+            callAnalyzer.setDuration("0");
+        }
+        dbHelper.add(callAnalyzer);
     }
 
     public long getDiffSeconds(Date start, Date end) {

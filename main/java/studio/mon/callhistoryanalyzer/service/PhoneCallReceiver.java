@@ -58,9 +58,9 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
                 onIncomingCallStarted(context, number, callStartTime);
                 break;
             case TelephonyManager.CALL_STATE_OFFHOOK:
+                callStartTime = new Date();
                 if(lastState != TelephonyManager.CALL_STATE_RINGING){
                     isIncoming = false;
-                    callStartTime = new Date();
                     onOutgoingCallStarted(context, savedNumber, callStartTime);
                 }
                 break;

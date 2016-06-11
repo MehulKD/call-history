@@ -30,6 +30,7 @@ import java.util.List;
 import studio.mon.callhistoryanalyzer.MainActivity;
 import studio.mon.callhistoryanalyzer.R;
 import studio.mon.callhistoryanalyzer.core.AppConfigs;
+import studio.mon.callhistoryanalyzer.core.Common;
 import studio.mon.callhistoryanalyzer.core.Constants;
 import studio.mon.callhistoryanalyzer.core.CoreActivity;
 import studio.mon.callhistoryanalyzer.core.CoreFragment;
@@ -45,25 +46,25 @@ public class ReceivedFragment extends CoreFragment implements SwipeRefreshLayout
     List<CallAnalyzer> receivedCallList;
     private ArrayAdapter<CallAnalyzer> adapter;
     private SwipeRefreshLayout swipeView;
-//    private Button btnRefresh, btnDate, btnMonth, btnClear;
+    private Button btnRefresh, btnDate, btnMonth, btnClear;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_received, container, false);
         listView = (ListView) view.findViewById(R.id.listView);
-//        btnRefresh = (Button) view.findViewById(R.id.btnRefresh);
-//        btnDate = (Button) view.findViewById(R.id.btnDate);
-//        btnMonth = (Button) view.findViewById(R.id.btnMonth);
-//        btnClear = (Button) view.findViewById(R.id.btnClear);
+        btnRefresh = (Button) view.findViewById(R.id.btnRefresh);
+        btnDate = (Button) view.findViewById(R.id.btnDate);
+        btnMonth = (Button) view.findViewById(R.id.btnMonth);
+        btnClear = (Button) view.findViewById(R.id.btnClear);
 
 //        swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe_view);
 //        swipeView.setOnRefreshListener(this);
 //        swipeView.setColorSchemeColors(Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN);
         DBHelper db = new DBHelper(mContext);
-        refreshReceivedCall();
+        receivedCallList = Common.refreshListCall(mContext, receivedCallList, Constants.RECEIVED_CALL);
         adapter = new ArrayAdapter<CallAnalyzer>(mActivity, android.R.layout.simple_list_item_1, receivedCallList);
         listView.setAdapter(adapter);
-//        initListener();
+        initListener();
         return view;
     }
 
@@ -79,30 +80,30 @@ public class ReceivedFragment extends CoreFragment implements SwipeRefreshLayout
 
     @Override
     protected void initListener() {
-//        btnRefresh.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                refresh();
-//            }
-//        });
-//        btnClear.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                clearData();
-//            }
-//        });
-//        btnDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showDialog(v, Constants.DATE_TYPE);
-//            }
-//        });
-//        btnMonth.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showDialog(v, Constants.MONTH_TYPE);
-//            }
-//        });
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Common.refresh(mContext, receivedCallList, Constants.RECEIVED_CALL, adapter);
+            }
+        });
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Common.clearData(receivedCallList, adapter);
+            }
+        });
+        btnDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Common.showDialog(v, Constants.DATE_TYPE, mContext, receivedCallList, adapter, Constants.RECEIVED_CALL);
+            }
+        });
+        btnMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Common.showDialog(v, Constants.MONTH_TYPE, mContext, receivedCallList, adapter, Constants.RECEIVED_CALL);
+            }
+        });
     }
 
     @Override
@@ -133,65 +134,5 @@ public class ReceivedFragment extends CoreFragment implements SwipeRefreshLayout
     @Override
     public void onRefresh() {
         //swipeView.setRefreshing(true);
-    }
-
-    public void refresh() {
-        receivedCallList.clear();
-        refreshReceivedCall();
-        adapter.notifyDataSetChanged();
-    }
-
-    public void showDialog(View v, final String timeType) {
-        Calendar calendar = Calendar.getInstance();
-        DatePickerDialog dpd = new DatePickerDialog(mContext,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        Date date = new Date(year-1900, monthOfYear, dayOfMonth);
-                        SimpleDateFormat sdf = null;
-                        if (timeType.equals(Constants.DATE_TYPE)) {
-                            sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        } else {
-                            sdf = new SimpleDateFormat("yyyy-MM");
-                        }
-                        String strDate = sdf.format(date);
-                        receivedCallList.clear();
-                        DBHelper db = new DBHelper(mContext);
-                        for (CallAnalyzer callAnalyzer : db.getAll()) {
-                            if (callAnalyzer.getType().equals(Constants.RECEIVED_CALL)
-                                && callAnalyzer.getTime().startsWith(strDate) ) {
-                                receivedCallList.add(callAnalyzer);
-                            }
-                        }
-                        adapter.notifyDataSetChanged();
-                    }
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-        );
-        dpd.show();
-    }
-
-    public void clearData() {
-//        DBHelper db = new DBHelper(mContext);
-//        db.deleteAll();
-        receivedCallList.clear();
-        adapter.notifyDataSetChanged();
-    }
-
-    public List<CallAnalyzer> refreshReceivedCall() {
-        if (receivedCallList == null) {
-            receivedCallList = new ArrayList<>();
-        } else {
-            receivedCallList.clear();
-        }
-        DBHelper db = new DBHelper(mContext);
-        for (CallAnalyzer callAnalyzer : db.getAll()) {
-            if (callAnalyzer.getType().equals(Constants.RECEIVED_CALL)) {
-                receivedCallList.add(callAnalyzer);
-            }
-        }
-        return receivedCallList;
     }
 }
