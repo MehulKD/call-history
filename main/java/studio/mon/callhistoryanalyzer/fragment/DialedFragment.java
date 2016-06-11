@@ -5,10 +5,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 
+import java.util.Arrays;
 import java.util.List;
 
 import studio.mon.callhistoryanalyzer.R;
@@ -25,20 +28,17 @@ import studio.mon.callhistoryanalyzer.model.CallAnalyzer;
 public class DialedFragment extends CoreFragment implements SwipeRefreshLayout.OnRefreshListener{
     private static String TAG = DialedFragment.class.getSimpleName();
 
+    private Spinner spinner;
     private ListView listView;
     List<CallAnalyzer> dialedCallList;
     private ArrayAdapter<CallAnalyzer> adapter;
-    private Button btnRefresh, btnDate, btnMonth, btnClear;
     private SwipeRefreshLayout swipeView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dialed, container, false);
         listView = (ListView) view.findViewById(R.id.listView);
-        btnRefresh = (Button) view.findViewById(R.id.btnRefresh);
-        btnDate = (Button) view.findViewById(R.id.btnDate);
-        btnMonth = (Button) view.findViewById(R.id.btnMonth);
-        btnClear = (Button) view.findViewById(R.id.btnClear);
+        spinner = (Spinner) view.findViewById(R.id.spinner);
 
 //        swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe_view);
 //        swipeView.setOnRefreshListener(this);
@@ -62,28 +62,19 @@ public class DialedFragment extends CoreFragment implements SwipeRefreshLayout.O
 
     @Override
     protected void initListener() {
-        btnRefresh.setOnClickListener(new View.OnClickListener() {
+        List<String> spinnerList = Arrays.asList("Refresh", "View date", "View month", "Clear");
+        ArrayAdapter<String> spinnerAdapter =
+                new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, spinnerList);
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Common.refresh(mContext, dialedCallList, Constants.DIALED_CALL, adapter);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Common.spinnerClicked(position, mContext, dialedCallList, adapter, Constants.DIALED_CALL);
             }
-        });
-        btnClear.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                Common.clearData(dialedCallList, adapter);
-            }
-        });
-        btnDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Common.showDialog(v, Constants.DATE_TYPE, mContext, dialedCallList, adapter, Constants.DIALED_CALL);
-            }
-        });
-        btnMonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Common.showDialog(v, Constants.MONTH_TYPE, mContext, dialedCallList, adapter, Constants.DIALED_CALL);
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }

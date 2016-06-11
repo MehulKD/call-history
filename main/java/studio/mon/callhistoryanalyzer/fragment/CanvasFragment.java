@@ -9,21 +9,30 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import studio.mon.callhistoryanalyzer.R;
+import studio.mon.callhistoryanalyzer.core.Common;
+import studio.mon.callhistoryanalyzer.core.Constants;
 import studio.mon.callhistoryanalyzer.core.CoreActivity;
 import studio.mon.callhistoryanalyzer.core.CoreFragment;
 
 public class CanvasFragment extends CoreFragment implements View.OnClickListener{
 
 	private LinearLayout tabMissed, tabReceived, tabDialed, tabTotal;
-	private LinearLayout mSearchBlock, mTitleBlock, idSort;
+	private LinearLayout mSearchBlock, /*mTitleBlock,*/ idSort;
 	private ImageView imGroup, imMatch ,imStadium;
-	private TextView mTitle;
+//	private TextView mTitle;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_canvas, container, false);
@@ -107,30 +116,30 @@ public class CanvasFragment extends CoreFragment implements View.OnClickListener
 	}
 
 	public void changeTabState(boolean missed, boolean received, boolean dial, boolean total) {
-		if(missed){
-			mTitle.setText("MISSED CALL");
-//			imGroup.setBackgroundResource(R.drawable.team_click);
-//			imMatch.setBackgroundResource(R.drawable.match);
-//			imStadium.setBackgroundResource(R.drawable.stadium);
-		}
-		if(received){
-			mTitle.setText("RECEIVED CALL");
-//			imMatch.setBackgroundResource(R.drawable.match_click);
-//			imGroup.setBackgroundResource(R.drawable.team);
-//			imStadium.setBackgroundResource(R.drawable.stadium);
-		}
-		if(dial){
-			mTitle.setText("DIAL CALL");
-//			imStadium.setBackgroundResource(R.drawable.stadium_click);
-//			imGroup.setBackgroundResource(R.drawable.team);
-//			imMatch.setBackgroundResource(R.drawable.match);
-		}
-		if(total){
-			mTitle.setText("TOTAL CALL");
-//			imStadium.setBackgroundResource(R.drawable.stadium_click);
-//			imGroup.setBackgroundResource(R.drawable.team);
-//			imMatch.setBackgroundResource(R.drawable.match);
-		}
+//		if(missed){
+//			mTitle.setText("MISSED CALL");
+////			imGroup.setBackgroundResource(R.drawable.team_click);
+////			imMatch.setBackgroundResource(R.drawable.match);
+////			imStadium.setBackgroundResource(R.drawable.stadium);
+//		}
+//		if(received){
+//			mTitle.setText("RECEIVED CALL");
+////			imMatch.setBackgroundResource(R.drawable.match_click);
+////			imGroup.setBackgroundResource(R.drawable.team);
+////			imStadium.setBackgroundResource(R.drawable.stadium);
+//		}
+//		if(dial){
+//			mTitle.setText("DIAL CALL");
+////			imStadium.setBackgroundResource(R.drawable.stadium_click);
+////			imGroup.setBackgroundResource(R.drawable.team);
+////			imMatch.setBackgroundResource(R.drawable.match);
+//		}
+//		if(total){
+//			mTitle.setText("TOTAL CALL");
+////			imStadium.setBackgroundResource(R.drawable.stadium_click);
+////			imGroup.setBackgroundResource(R.drawable.team);
+////			imMatch.setBackgroundResource(R.drawable.match);
+//		}
 	}
 
 	public void initModels() {
@@ -180,9 +189,8 @@ public class CanvasFragment extends CoreFragment implements View.OnClickListener
 		tabReceived = (LinearLayout) v.findViewById(R.id.tab_received);
 		tabDialed = (LinearLayout) v.findViewById(R.id.tab_dialed);
 		tabTotal = (LinearLayout) v.findViewById(R.id.tab_total);
-		mTitle = (TextView) v.findViewById(R.id.fragment_canvas_title);
-		mTitleBlock = (LinearLayout) v.findViewById(R.id.fragment_canvas_title_block);
-
+//		mTitle = (TextView) v.findViewById(R.id.fragment_canvas_title);
+//		mTitleBlock = (LinearLayout) v.findViewById(R.id.fragment_canvas_title_block);
 
 	}
 
@@ -193,6 +201,7 @@ public class CanvasFragment extends CoreFragment implements View.OnClickListener
 		tabReceived.setOnClickListener(this);
 		tabDialed.setOnClickListener(this);
 		tabTotal.setOnClickListener(this);
+
 	}
 
 

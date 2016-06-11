@@ -3,6 +3,7 @@ package studio.mon.callhistoryanalyzer.fragment;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -17,12 +18,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -42,20 +46,18 @@ import studio.mon.callhistoryanalyzer.model.CallAnalyzer;
  */
 public class ReceivedFragment extends CoreFragment implements SwipeRefreshLayout.OnRefreshListener{
     private static String TAG = ReceivedFragment.class.getSimpleName();
+
     private ListView listView;
     List<CallAnalyzer> receivedCallList;
     private ArrayAdapter<CallAnalyzer> adapter;
     private SwipeRefreshLayout swipeView;
-    private Button btnRefresh, btnDate, btnMonth, btnClear;
+    private Spinner spinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_received, container, false);
         listView = (ListView) view.findViewById(R.id.listView);
-        btnRefresh = (Button) view.findViewById(R.id.btnRefresh);
-        btnDate = (Button) view.findViewById(R.id.btnDate);
-        btnMonth = (Button) view.findViewById(R.id.btnMonth);
-        btnClear = (Button) view.findViewById(R.id.btnClear);
+        spinner = (Spinner) view.findViewById(R.id.spinner);
 
 //        swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe_view);
 //        swipeView.setOnRefreshListener(this);
@@ -79,28 +81,19 @@ public class ReceivedFragment extends CoreFragment implements SwipeRefreshLayout
 
     @Override
     protected void initListener() {
-        btnRefresh.setOnClickListener(new View.OnClickListener() {
+        List<String> spinnerList = Arrays.asList("Refresh", "View date", "View month", "Clear");
+        ArrayAdapter<String> spinnerAdapter =
+                new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, spinnerList);
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Common.refresh(mContext, receivedCallList, Constants.RECEIVED_CALL, adapter);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Common.spinnerClicked(position, mContext, receivedCallList, adapter, Constants.DIALED_CALL);
             }
-        });
-        btnClear.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                Common.clearData(receivedCallList, adapter);
-            }
-        });
-        btnDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Common.showDialog(v, Constants.DATE_TYPE, mContext, receivedCallList, adapter, Constants.RECEIVED_CALL);
-            }
-        });
-        btnMonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Common.showDialog(v, Constants.MONTH_TYPE, mContext, receivedCallList, adapter, Constants.RECEIVED_CALL);
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
