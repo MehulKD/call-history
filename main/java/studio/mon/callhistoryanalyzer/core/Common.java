@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +20,26 @@ import studio.mon.callhistoryanalyzer.model.CallAnalyzer;
  * Created by SonNC on 6/10/2016.
  */
 public class Common {
+
+    static public void spinnerClicked(int position, final Context context, final List<CallAnalyzer> list, final BaseAdapter adapter, final String type){
+        switch (position) {
+            case 0:
+                refresh(context,list, type, adapter);
+                break;
+            case 1:
+                showDialog(Constants.DATE_TYPE, context, list, adapter, type);
+                break;
+            case 2:
+                showDialog(Constants.MONTH_TYPE, context, list, adapter, type);
+                break;
+            case 3:
+                clearData(list,adapter);
+                break;
+            default:
+                break;
+        }
+    }
+
     static public List<CallAnalyzer> refreshListCall(Context context, List<CallAnalyzer> list, String type) {
         if (list == null) {
             list = new ArrayList<>();
@@ -39,7 +60,7 @@ public class Common {
         adapter.notifyDataSetChanged();
     }
 
-    static public void showDialog(View v, final String timeType, final Context context, final List<CallAnalyzer> list, final BaseAdapter adapter, final String type) {
+    static public void showDialog(final String timeType, final Context context, final List<CallAnalyzer> list, final BaseAdapter adapter, final String type) {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog dpd = new DatePickerDialog(context,
                 new DatePickerDialog.OnDateSetListener() {
@@ -72,8 +93,6 @@ public class Common {
     }
 
     static public void clearData(List<CallAnalyzer> list, BaseAdapter adapter) {
-//        DBHelper db = new DBHelper(mContext);
-//        db.deleteAll();
         list.clear();
         adapter.notifyDataSetChanged();
     }
