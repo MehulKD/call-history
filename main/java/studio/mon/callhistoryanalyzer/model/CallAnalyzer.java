@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class CallAnalyzer {
     private int id;
+    private int icon;
     private String name;
     private String number;
     private String time;
@@ -16,13 +17,22 @@ public class CallAnalyzer {
     public CallAnalyzer() {
     }
 
-    public CallAnalyzer(int id, String name, String number, String time, String type, String duration) {
+    public CallAnalyzer(int id, int icon, String name, String number, String time, String type, String duration) {
         this.id = id;
+        this.icon = icon;
         this.name = name;
         this.number = number;
         this.time = time;
         this.type = type;
         this.duration = duration;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 
     public int getId() {
@@ -76,7 +86,9 @@ public class CallAnalyzer {
     @Override
     public String toString() {
         return "CallAnalyzer{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", icon=" + icon +
+                ", name='" + name + '\'' +
                 ", number='" + number + '\'' +
                 ", time='" + time + '\'' +
                 ", type='" + type + '\'' +

@@ -23,6 +23,7 @@ public class MissedAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     List<CallAnalyzer> listCallAnalyzer;
     Activity activity;
+
     public MissedAdapter(ArrayList<CallAnalyzer> listCallAnalyzer, Activity activity) {
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

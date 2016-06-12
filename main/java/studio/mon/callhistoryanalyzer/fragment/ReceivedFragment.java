@@ -64,8 +64,7 @@ public class ReceivedFragment extends CoreFragment implements SwipeRefreshLayout
 //        swipeView.setColorSchemeColors(Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN);
         DBHelper db = new DBHelper(mContext);
         receivedCallList = Common.refreshListCall(mContext, receivedCallList, Constants.RECEIVED_CALL);
-        adapter = new ArrayAdapter<CallAnalyzer>(mActivity, android.R.layout.simple_list_item_1, receivedCallList);
-        listView.setAdapter(adapter);
+        Common.setCustomList(mContext,listView,receivedCallList,Constants.CALLER_INCOMMING);
         initListener();
         return view;
     }
