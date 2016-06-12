@@ -89,6 +89,7 @@ public class ReceivedFragment extends CoreFragment implements SwipeRefreshLayout
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (view != null) ((TextView) view).setText(null);
                 Common.spinnerClicked(position, mContext, receivedCallList, adapter, Constants.DIALED_CALL);
             }
 

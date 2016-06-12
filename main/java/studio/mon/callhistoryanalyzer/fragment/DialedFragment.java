@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -70,6 +71,7 @@ public class DialedFragment extends CoreFragment implements SwipeRefreshLayout.O
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (view != null) ((TextView) view).setText(null);
                 Common.spinnerClicked(position, mContext, dialedCallList, adapter, Constants.DIALED_CALL);
             }
 

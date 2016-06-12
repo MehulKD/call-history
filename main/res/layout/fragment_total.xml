@@ -16,7 +16,8 @@
             android:id="@+id/fragment_canvas_title_block"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:background="@color/blue_light" >
 
             <TextView
                 android:id="@+id/fragment_canvas_title"
@@ -33,7 +34,9 @@
             <Spinner
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:id="@+id/spinner" />
+                android:id="@+id/spinner"
+                android:spinnerMode="dropdown"
+                android:background="@android:drawable/ic_menu_sort_by_size" />
         </LinearLayout>
 
     </LinearLayout>
