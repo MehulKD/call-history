@@ -35,7 +35,7 @@
                    android:layout_height="match_parent"
                    android:id="@+id/spinner"
                    android:spinnerMode="dropdown"
-                   android:background="@android:drawable/ic_menu_sort_by_size" />
+                   android:background="@drawable/menu" />
            </LinearLayout>
 
    </LinearLayout>
