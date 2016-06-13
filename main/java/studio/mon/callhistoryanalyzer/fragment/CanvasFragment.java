@@ -1,7 +1,6 @@
 package studio.mon.callhistoryanalyzer.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
@@ -10,30 +9,21 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 
-import java.util.Arrays;
-import java.util.List;
-
 import studio.mon.callhistoryanalyzer.R;
-import studio.mon.callhistoryanalyzer.core.Common;
-import studio.mon.callhistoryanalyzer.core.Constants;
 import studio.mon.callhistoryanalyzer.core.CoreActivity;
 import studio.mon.callhistoryanalyzer.core.CoreFragment;
 
 public class CanvasFragment extends CoreFragment implements View.OnClickListener{
 
 	private LinearLayout tabMissed, tabReceived, tabDialed, tabTotal;
-	private LinearLayout mSearchBlock, /*mTitleBlock,*/ idSort;
-	private ImageView imMissed, imReceived ,imDialed, imTotal;
+	private LinearLayout mSearchBlock,/* mTitleBlock,*/ idSort;
+	private ImageView imGroup, imMatch ,imStadium;
 //	private TextView mTitle;
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_canvas, container, false);
@@ -51,47 +41,33 @@ public class CanvasFragment extends CoreFragment implements View.OnClickListener
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	}
 
-	public void changeColor(int imgId) {
-		if (imgId == imMissed.getId()) {
-			imMissed.setBackgroundColor(Color.rgb(105, 166, 160));
-		} else {
-			imMissed.setBackgroundColor(Color.rgb(128, 203, 196));
-		}
-		if (imgId == imDialed.getId()) {
-			imDialed.setBackgroundColor(Color.rgb(105, 166, 160));
-		} else {
-			imDialed.setBackgroundColor(Color.rgb(128, 203, 196));
-		}
-		if (imgId == imReceived.getId()) {
-			imReceived.setBackgroundColor(Color.rgb(105, 166, 160));
-		} else {
-			imReceived.setBackgroundColor(Color.rgb(128, 203, 196));
-		}
-		if (imgId == imTotal.getId()) {
-			imTotal.setBackgroundColor(Color.rgb(105, 166, 160));
-		} else {
-			imTotal.setBackgroundColor(Color.rgb(128, 203, 196));
-		}
-	}
 
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
 			case R.id.tab_missed:
 				mPager.setCurrentItem(0);
-				changeColor(imMissed.getId());
+//				imGroup.setBackgroundResource(R.drawable.team_click);
+//				imMatch.setBackgroundResource(R.drawable.match);
+//				imStadium.setBackgroundResource(R.drawable.stadium);
 				break;
 			case R.id.tab_received:
 				mPager.setCurrentItem(1);
-				changeColor(imReceived.getId());
+//				imMatch.setBackgroundResource(R.drawable.match_click);
+//				imGroup.setBackgroundResource(R.drawable.team);
+//				imStadium.setBackgroundResource(R.drawable.stadium);
 				break;
 			case R.id.tab_dialed:
 				mPager.setCurrentItem(2);
-				changeColor(imDialed.getId());
+//				imStadium.setBackgroundResource(R.drawable.stadium_click);
+//				imMatch.setBackgroundResource(R.drawable.match);
+//				imGroup.setBackgroundResource(R.drawable.team);
 				break;
 			case R.id.tab_total:
 				mPager.setCurrentItem(3);
-				changeColor(imTotal.getId());
+//				imStadium.setBackgroundResource(R.drawable.stadium_click);
+//				imMatch.setBackgroundResource(R.drawable.match);
+//				imGroup.setBackgroundResource(R.drawable.team);
 				break;
 		default:
 			break;
@@ -132,16 +108,28 @@ public class CanvasFragment extends CoreFragment implements View.OnClickListener
 
 	public void changeTabState(boolean missed, boolean received, boolean dial, boolean total) {
 		if(missed){
-			changeColor(imMissed.getId());
+//			mTitle.setText("MISSED CALL");
+//			imGroup.setBackgroundResource(R.drawable.team_click);
+//			imMatch.setBackgroundResource(R.drawable.match);
+//			imStadium.setBackgroundResource(R.drawable.stadium);
 		}
 		if(received){
-			changeColor(imReceived.getId());
+//			mTitle.setText("RECEIVED CALL");
+//			imMatch.setBackgroundResource(R.drawable.match_click);
+//			imGroup.setBackgroundResource(R.drawable.team);
+//			imStadium.setBackgroundResource(R.drawable.stadium);
 		}
 		if(dial){
-			changeColor(imDialed.getId());
+//			mTitle.setText("DIAL CALL");
+//			imStadium.setBackgroundResource(R.drawable.stadium_click);
+//			imGroup.setBackgroundResource(R.drawable.team);
+//			imMatch.setBackgroundResource(R.drawable.match);
 		}
 		if(total){
-			changeColor(imTotal.getId());
+//			mTitle.setText("TOTAL CALL");
+//			imStadium.setBackgroundResource(R.drawable.stadium_click);
+//			imGroup.setBackgroundResource(R.drawable.team);
+//			imMatch.setBackgroundResource(R.drawable.match);
 		}
 	}
 
@@ -194,10 +182,8 @@ public class CanvasFragment extends CoreFragment implements View.OnClickListener
 		tabTotal = (LinearLayout) v.findViewById(R.id.tab_total);
 //		mTitle = (TextView) v.findViewById(R.id.fragment_canvas_title);
 //		mTitleBlock = (LinearLayout) v.findViewById(R.id.fragment_canvas_title_block);
-		imMissed = (ImageView) v.findViewById(R.id.imMissed);
-		imReceived = (ImageView) v.findViewById(R.id.imReceived);
-		imDialed = (ImageView) v.findViewById(R.id.imDialed);
-		imTotal = (ImageView) v.findViewById(R.id.imTotal);
+
+
 	}
 
 
@@ -207,7 +193,6 @@ public class CanvasFragment extends CoreFragment implements View.OnClickListener
 		tabReceived.setOnClickListener(this);
 		tabDialed.setOnClickListener(this);
 		tabTotal.setOnClickListener(this);
-
 	}
 
 

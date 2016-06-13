@@ -3,7 +3,6 @@ package studio.mon.callhistoryanalyzer.fragment;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -18,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,6 +31,7 @@ import java.util.List;
 
 import studio.mon.callhistoryanalyzer.MainActivity;
 import studio.mon.callhistoryanalyzer.R;
+import studio.mon.callhistoryanalyzer.adapter.CustomCallAdapter;
 import studio.mon.callhistoryanalyzer.core.AppConfigs;
 import studio.mon.callhistoryanalyzer.core.Common;
 import studio.mon.callhistoryanalyzer.core.Constants;
@@ -46,25 +45,24 @@ import studio.mon.callhistoryanalyzer.model.CallAnalyzer;
  */
 public class ReceivedFragment extends CoreFragment implements SwipeRefreshLayout.OnRefreshListener{
     private static String TAG = ReceivedFragment.class.getSimpleName();
-
+    private Spinner spinner;
     private ListView listView;
     List<CallAnalyzer> receivedCallList;
     private ArrayAdapter<CallAnalyzer> adapter;
     private SwipeRefreshLayout swipeView;
-    private Spinner spinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_received, container, false);
         listView = (ListView) view.findViewById(R.id.listView);
         spinner = (Spinner) view.findViewById(R.id.spinner);
-
 //        swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe_view);
 //        swipeView.setOnRefreshListener(this);
 //        swipeView.setColorSchemeColors(Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN);
         DBHelper db = new DBHelper(mContext);
-        receivedCallList = Common.refreshListCall(mContext, receivedCallList, Constants.RECEIVED_CALL);
-        Common.setCustomList(mContext,listView,receivedCallList,Constants.CALLER_INCOMMING);
+        receivedCallList = Common.refresh(mContext, receivedCallList, Constants.RECEIVED_CALL);
+        adapter = new CustomCallAdapter(mContext, R.layout.fragment_customlayer, receivedCallList);
+        listView.setAdapter(adapter);
         initListener();
         return view;
     }
@@ -89,7 +87,7 @@ public class ReceivedFragment extends CoreFragment implements SwipeRefreshLayout
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (view != null) ((TextView) view).setText(null);
-                Common.spinnerClicked(position, mContext, receivedCallList, adapter, Constants.DIALED_CALL);
+                Common.spinnerClicked(position, mContext, receivedCallList, adapter,Constants.RECEIVED_CALL);
             }
 
             @Override

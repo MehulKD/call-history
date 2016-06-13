@@ -2,7 +2,6 @@ package studio.mon.callhistoryanalyzer.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +16,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import studio.mon.callhistoryanalyzer.R;
+import studio.mon.callhistoryanalyzer.adapter.CustomCallAdapter;
 import studio.mon.callhistoryanalyzer.core.Common;
 import studio.mon.callhistoryanalyzer.core.Constants;
 import studio.mon.callhistoryanalyzer.core.CoreActivity;
 import studio.mon.callhistoryanalyzer.core.CoreFragment;
-import studio.mon.callhistoryanalyzer.core.CustomCaller;
 import studio.mon.callhistoryanalyzer.core.DBHelper;
 import studio.mon.callhistoryanalyzer.model.CallAnalyzer;
 
@@ -42,13 +41,13 @@ public class MissedFragment extends CoreFragment implements SwipeRefreshLayout.O
         View view = inflater.inflate(R.layout.fragment_missed, container, false);
         listView = (ListView) view.findViewById(R.id.listView);
         spinner = (Spinner) view.findViewById(R.id.spinner);
-
 //        swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe_view);
 //        swipeView.setOnRefreshListener(this);
 //        swipeView.setColorSchemeColors(Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN);
         DBHelper db = new DBHelper(mContext);
-        missedCallList = Common.refreshListCall(mContext, missedCallList, Constants.MISSED_CALL);
-        Common.setCustomList(mContext,listView,missedCallList,Constants.CALLER_MISSED);
+        missedCallList = Common.refresh(mContext, missedCallList, Constants.MISSED_CALL);
+        adapter = new CustomCallAdapter(mContext, R.layout.fragment_customlayer, missedCallList);
+        listView.setAdapter(adapter);
         initListener();
         return view;
     }
@@ -73,7 +72,7 @@ public class MissedFragment extends CoreFragment implements SwipeRefreshLayout.O
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (view != null) ((TextView) view).setText(null);
-                Common.spinnerClicked(position, mContext, missedCallList, adapter, Constants.DIALED_CALL);
+                Common.spinnerClicked(position, mContext, missedCallList, adapter,Constants.MISSED_CALL);
             }
 
             @Override

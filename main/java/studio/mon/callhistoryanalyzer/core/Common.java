@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.DatePicker;
-import android.widget.ListView;
-import android.widget.Switch;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,18 +13,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import studio.mon.callhistoryanalyzer.R;
 import studio.mon.callhistoryanalyzer.model.CallAnalyzer;
 
 /**
  * Created by SonNC on 6/10/2016.
  */
 public class Common {
-
     static public void spinnerClicked(int position, final Context context, final List<CallAnalyzer> list, final BaseAdapter adapter, final String type) {
         switch (position) {
             case 0:
-                refresh(context, list, type, adapter);
+                refresh(context, list, type);
+                adapter.notifyDataSetChanged();
                 break;
             case 1:
                 showDialog(Constants.DATE_TYPE, context, list, adapter, type);
@@ -42,7 +39,7 @@ public class Common {
         }
     }
 
-    static public List<CallAnalyzer> refreshListCall(Context context, List<CallAnalyzer> list, String type) {
+    static public List<CallAnalyzer> refresh(Context context, List<CallAnalyzer> list, String type) {
         if (list == null) {
             list = new ArrayList<>();
         } else {
@@ -57,19 +54,13 @@ public class Common {
         return list;
     }
 
-    static public void refresh(Context context, List<CallAnalyzer> list, String type, BaseAdapter adapter) {
-        list.clear();
-        list = refreshListCall(context, list, type);
-        adapter.notifyDataSetChanged();
-    }
-
     static public void showDialog(final String timeType, final Context context, final List<CallAnalyzer> list, final BaseAdapter adapter, final String type) {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog dpd = new DatePickerDialog(context,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        Date date = new Date(year - 1900, monthOfYear, dayOfMonth);
+                        Date date = new Date(year-1900, monthOfYear, dayOfMonth);
                         SimpleDateFormat sdf = null;
                         if (timeType.equals(Constants.DATE_TYPE)) {
                             sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -81,7 +72,7 @@ public class Common {
                         DBHelper db = new DBHelper(context);
                         for (CallAnalyzer callAnalyzer : db.getAll()) {
                             if (callAnalyzer.getType().equals(type)
-                                    && callAnalyzer.getTime().startsWith(strDate)) {
+                                    && callAnalyzer.getTime().startsWith(strDate) ) {
                                 list.add(callAnalyzer);
                             }
                         }
@@ -96,42 +87,7 @@ public class Common {
     }
 
     static public void clearData(List<CallAnalyzer> list, BaseAdapter adapter) {
-//        DBHelper db = new DBHelper(mContext);
-//        db.deleteAll();
         list.clear();
         adapter.notifyDataSetChanged();
-    }
-
-    /**
-     * Set custom listview for app
-     * @param context
-     * @param listView
-     * @param list
-     * @param type
-     */
-    public static void setCustomList(Context context, ListView listView, List<CallAnalyzer> list, int type) {
-        if (!list.isEmpty()) {
-            switch (type) {
-                case 1:
-                    for (CallAnalyzer callAnalyzer : list) {
-                        callAnalyzer.setIcon(R.drawable.missedcall);
-                    }
-                    break;
-                case 2:
-                    for (CallAnalyzer callAnalyzer : list) {
-                        callAnalyzer.setIcon(R.drawable.incoming);
-                    }
-                    break;
-                case 3:
-                    for (CallAnalyzer callAnalyzer : list) {
-                        callAnalyzer.setIcon(R.drawable.outgoing);
-                    }
-                    break;
-                default:
-                    break;
-            }
-            CustomCaller customCaller = new CustomCaller(context, R.layout.fragment_customlayer, list);
-            listView.setAdapter(customCaller);
-        }
     }
 }
