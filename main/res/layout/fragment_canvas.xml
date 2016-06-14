@@ -3,7 +3,7 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/accent_material_dark"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <View
@@ -25,7 +25,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/tabbar_height"
-        android:background="#00000000"
+        android:background="#FF8888F8"
         android:orientation="horizontal" >
 
         <LinearLayout
@@ -37,10 +37,10 @@
             android:orientation="horizontal" >
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/icon_tab"
+                android:layout_height="@dimen/icon_tab"
                 android:id="@+id/imMissed"
-                android:src="@android:drawable/sym_call_missed" />
+                android:src="@drawable/phonecall" />
         </LinearLayout>
 
         <View
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_divide"
             android:layout_marginTop="@dimen/margin_divide"
-            android:background="@color/divider_tab_bottom" />
+            android:background="@android:color/background_dark" />
 
         <LinearLayout
             android:id="@+id/tab_received"
@@ -59,10 +59,10 @@
             android:orientation="vertical" >
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/icon_tab"
+                android:layout_height="@dimen/icon_tab"
                 android:id="@+id/imReceived"
-                android:src="@android:drawable/sym_call_outgoing" />
+                android:src="@drawable/receive" />
         </LinearLayout>
 
         <View
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_divide"
             android:layout_marginTop="@dimen/margin_divide"
-            android:background="@color/divider_tab_bottom" />
+            android:background="@android:color/background_dark" />
 
         <LinearLayout
             android:id="@+id/tab_dialed"
@@ -81,17 +81,17 @@
             android:orientation="vertical" >
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/icon_tab"
+                android:layout_height="@dimen/icon_tab"
                 android:id="@+id/imDialed"
-                android:src="@android:drawable/sym_call_incoming" />
+                android:src="@drawable/dialed" />
         </LinearLayout>
         <View
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_divide"
             android:layout_marginTop="@dimen/margin_divide"
-            android:background="@color/divider_tab_bottom" />
+            android:background="@android:color/background_dark" />
 
         <LinearLayout
             android:id="@+id/tab_total"
@@ -102,10 +102,10 @@
             android:orientation="vertical" >
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/icon_tab"
+                android:layout_height="@dimen/icon_tab"
                 android:id="@+id/imTotal"
-                android:src="@android:drawable/presence_away" />
+                android:src="@drawable/total" />
         </LinearLayout>
 
     </LinearLayout>

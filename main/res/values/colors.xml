@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#0e0e11</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <!-- BASE COLOR -->
@@ -11,7 +11,7 @@
     <color name="gray_dark">#808080</color>
     <color name="gray_light">#C0C0C0</color>
     <color name="gray_bg">#999999</color>
-    <color name="blue_light">#0000FF</color>
+    <color name="blue_light">#7676f1</color>
     <color name="blue_dark">#0000A0</color>
     <color name="yellow">#FFFF00</color>
     <color name="orange">#FF8040</color>

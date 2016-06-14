@@ -15,7 +15,7 @@
             android:id="@+id/fragment_canvas_title_block"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/blue_light">
+            android:background="#FF8888F8">
             android:orientation="horizontal" >
 
             <TextView

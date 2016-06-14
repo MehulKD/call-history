@@ -46,24 +46,32 @@ public class CanvasFragment extends CoreFragment implements View.OnClickListener
 
 	public void changeColor(int imgId) {
 		if (imgId == imMissed.getId()) {
-			imMissed.setBackgroundColor(Color.rgb(105, 166, 160));
+			imMissed.setImageAlpha(255);
+//			imMissed.setBackgroundColor(Color.rgb(105, 166, 160));
 		} else {
-			imMissed.setBackgroundColor(Color.rgb(128, 203, 196));
+			imMissed.setImageAlpha(150);
+//			imMissed.setBackgroundColor(Color.rgb(255, 255, 255));
 		}
 		if (imgId == imDialed.getId()) {
-			imDialed.setBackgroundColor(Color.rgb(105, 166, 160));
+			imDialed.setImageAlpha(255);
+//			imDialed.setBackgroundColor(Color.rgb(105, 166, 160));
 		} else {
-			imDialed.setBackgroundColor(Color.rgb(128, 203, 196));
+			imDialed.setImageAlpha(150);
+//			imDialed.setBackgroundColor(Color.rgb(255, 255, 255));
 		}
 		if (imgId == imReceived.getId()) {
-			imReceived.setBackgroundColor(Color.rgb(105, 166, 160));
+			imReceived.setImageAlpha(255);
+//			imReceived.setBackgroundColor(Color.rgb(105, 166, 160));
 		} else {
-			imReceived.setBackgroundColor(Color.rgb(128, 203, 196));
+			imReceived.setImageAlpha(150);
+//			imReceived.setBackgroundColor(Color.rgb(255, 255, 255));
 		}
 		if (imgId == imTotal.getId()) {
-			imTotal.setBackgroundColor(Color.rgb(105, 166, 160));
+			imTotal.setImageAlpha(255);
+//			imTotal.setBackgroundColor(Color.rgb(105, 166, 160));
 		} else {
-			imTotal.setBackgroundColor(Color.rgb(128, 203, 196));
+			imTotal.setImageAlpha(150);
+//			imTotal.setBackgroundColor(Color.rgb(255, 255, 255));
 		}
 	}
 
