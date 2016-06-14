@@ -16,7 +16,7 @@
             android:id="@+id/fragment_canvas_title_block"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FF8888F8">
+            android:background="@color/win">
             android:orientation="horizontal" >
 
             <TextView
@@ -63,7 +63,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/tabbar_height"
-        android:background="#FF8888F8"
+        android:background="@color/win"
         android:orientation="horizontal" >
 
         <LinearLayout
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_divide"
             android:layout_marginTop="@dimen/margin_divide"
-            android:background="@android:color/background_dark" />
+            android:background="@android:color/white" />
 
         <LinearLayout
             android:id="@+id/tab_received"
@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_divide"
             android:layout_marginTop="@dimen/margin_divide"
-            android:background="@android:color/background_dark" />
+            android:background="@android:color/white" />
 
         <LinearLayout
             android:id="@+id/tab_dialed"
@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_divide"
             android:layout_marginTop="@dimen/margin_divide"
-            android:background="@android:color/background_dark" />
+            android:background="@android:color/white" />
 
         <LinearLayout
             android:id="@+id/tab_total"

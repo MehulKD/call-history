@@ -64,28 +64,28 @@ public class CanvasFragment extends CoreFragment implements View.OnClickListener
 
 	public void changeColor(int imgId) {
 		if (imgId == imMissed.getId()) {
-			//imMissed.setImageAlpha(255);
+			imMissed.setImageAlpha(255);
 //			imMissed.setBackgroundColor(Color.rgb(105, 166, 160));
 		} else {
-			//imMissed.setImageAlpha(150);
+			imMissed.setImageAlpha(150);
 //			imMissed.setBackgroundColor(Color.rgb(255, 255, 255));
 		}
 		if (imgId == imDialed.getId()) {
-			//imDialed.setImageAlpha(255);
+			imDialed.setImageAlpha(255);
 //			imDialed.setBackgroundColor(Color.rgb(105, 166, 160));
 		} else {
-			//imDialed.setImageAlpha(150);
+			imDialed.setImageAlpha(150);
 //			imDialed.setBackgroundColor(Color.rgb(255, 255, 255));
 		}
 		if (imgId == imReceived.getId()) {
-			//imReceived.setImageAlpha(255);
+			imReceived.setImageAlpha(255);
 //			imReceived.setBackgroundColor(Color.rgb(105, 166, 160));
 		} else {
-			//imReceived.setImageAlpha(150);
+			imReceived.setImageAlpha(150);
 //			imReceived.setBackgroundColor(Color.rgb(255, 255, 255));
 		}
 		if (imgId == imTotal.getId()) {
-			//imTotal.setImageAlpha(255);
+			imTotal.setImageAlpha(255);
 //			imTotal.setBackgroundColor(Color.rgb(105, 166, 160));
 		} else {
 			//imTotal.setImageAlpha(150);
