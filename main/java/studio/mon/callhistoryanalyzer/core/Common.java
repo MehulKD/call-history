@@ -2,6 +2,7 @@ package studio.mon.callhistoryanalyzer.core;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.telecom.Call;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
@@ -85,6 +86,7 @@ public class Common {
         );
         dpd.show();
     }
+
 
     static public void clearData(List<CallAnalyzer> list, BaseAdapter adapter) {
         list.clear();

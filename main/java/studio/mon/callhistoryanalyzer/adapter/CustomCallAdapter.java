@@ -44,6 +44,8 @@ public class CustomCallAdapter extends ArrayAdapter{
             viewHolder.tvCaller = (TextView) convertView.findViewById(R.id.tvCaller);
             viewHolder.tvNumber = (TextView) convertView.findViewById(R.id.tvNumber);
             viewHolder.tvTime = (TextView) convertView.findViewById(R.id.tvTime);
+            viewHolder.tvDuration = (TextView) convertView.findViewById(R.id.txtDuration);
+
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -59,6 +61,7 @@ public class CustomCallAdapter extends ArrayAdapter{
         viewHolder.tvCaller.setText(callAnalyzerList.get(position).getName());
         viewHolder.tvNumber.setText(String.valueOf(callAnalyzerList.get(position).getNumber()));
         viewHolder.tvTime.setText(String.valueOf(callAnalyzerList.get(position).getTime()));
+        viewHolder.tvDuration.setText(String.valueOf(callAnalyzerList.get(position).getDuration()));
 
         return convertView;
     }
@@ -68,5 +71,6 @@ public class CustomCallAdapter extends ArrayAdapter{
         private TextView tvCaller;
         private TextView tvNumber;
         private TextView tvTime;
+        private TextView tvDuration;
     }
 }
